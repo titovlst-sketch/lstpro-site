@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /success.html
+Sitemap: https://lstpro.ru/sitemap.xml
+Host: lstpro.ru

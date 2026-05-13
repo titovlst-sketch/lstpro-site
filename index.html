@@ -1,290 +1,112 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ООО «ЛСТ ПРО» — разработка ПО, ELMA365, amoCRM, SQL, ИБ и ИТ-инфраструктура</title>
-  <meta name="description" content="ООО «ЛСТ ПРО»: разработка программного обеспечения по индивидуальным требованиям заказчика, внедрение ELMA365 и amoCRM, Python, Java, C#, TypeScript, Node.js, SQL, информационная безопасность, обслуживание рабочих мест и инфраструктуры." />
-  <meta name="keywords" content="ЛСТ ПРО, разработка ПО, ELMA365, amoCRM, Python, Java, C#, TypeScript, Node.js, SQL, информационная безопасность, ИТ инфраструктура, Санкт-Петербург" />
-  <meta property="og:title" content="ООО «ЛСТ ПРО» — ИТ-решения для бизнеса" />
-  <meta property="og:description" content="Разрабатываем и сопровождаем программные решения, автоматизируем процессы и обеспечиваем надежную ИТ-инфраструктуру." />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0b1220" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ООО «ЛСТ ПРО» — разработка ПО, ELMA365, amoCRM, Python, Java, C#, TypeScript</title>
+  <meta name="description" content="ООО «ЛСТ ПРО»: разработка программного обеспечения по индивидуальным требованиям заказчика, ELMA365, amoCRM, Python, Java, C#, TypeScript, Node.js, SQL, ИБ и ИТ-инфраструктура.">
+  <meta name="keywords" content="ЛСТ ПРО, lstpro, разработка ПО, ELMA365, amoCRM, Python, Java, C#, TypeScript, Node.js, SQL, информационная безопасность, ИТ обслуживание">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ООО «ЛСТ ПРО» — инженерная ИТ-разработка для бизнеса">
+  <meta property="og:description" content="Проектируем, разрабатываем и сопровождаем ПО, CRM, BPM, базы данных и ИТ-инфраструктуру.">
+  <meta property="og:url" content="https://lstpro.ru/">
+  <meta property="og:image" content="https://lstpro.ru/assets/og.svg">
+  <meta name="theme-color" content="#0a1224">
+  <link rel="canonical" href="https://lstpro.ru/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/style.css" as="style">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"Общество с ограниченной ответственностью «ЛСТ ПРО»","alternateName":"ООО «ЛСТ ПРО»","url":"https://lstpro.ru/","email":"titov@78stroy.ru","telephone":"+7-812-325-82-55","address":{"@type":"PostalAddress","addressLocality":"Санкт-Петербург","streetAddress":"Миллионная ул., д. 8, помещ. 15-Н, помещение 12","postalCode":"191181","addressCountry":"RU"},"taxID":"7840102040","founder":"Титов Дмитрий Викторович","sameAs":[]}
+  </script>
 </head>
 <body>
+  <div class="noise"></div>
   <header class="site-header" id="top">
-    <div class="container nav-wrap">
-      <a class="logo" href="#top" aria-label="ООО ЛСТ ПРО">
-        <span class="logo-mark">LST</span>
-        <span class="logo-text">ЛСТ ПРО</span>
-      </a>
-      <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
-      <nav class="nav" aria-label="Основная навигация">
-        <a href="#services">Услуги</a>
-        <a href="#technologies">Технологии</a>
-        <a href="#compliance">Приказ №511</a>
-        <a href="#price">Стоимость</a>
-        <a href="#requisites">Реквизиты</a>
-        <a class="nav-cta" href="#contact">Связаться</a>
-      </nav>
-    </div>
+    <a class="brand" href="#top" aria-label="ЛСТ ПРО главная"><span class="brand-mark">LST</span><span><strong>ЛСТ ПРО</strong><small>ИТ-разработка и инфраструктура</small></span></a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#services">Услуги</a><a href="#tech">Технологии</a><a href="#compliance">Приказ №511</a><a href="#price">Стоимость</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="header-phone" href="tel:+78123258255">+7 812 325-82-55</a>
+    <button class="burger" type="button" aria-label="Открыть меню"><span></span><span></span></button>
   </header>
 
   <main>
     <section class="hero section">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <p class="eyebrow">ИТ-компания · разработка · автоматизация · сопровождение</p>
-          <h1>Создаем программные решения под реальные бизнес-процессы</h1>
-          <p class="lead">ООО «ЛСТ ПРО» разрабатывает программное обеспечение по индивидуальным требованиям заказчика, внедряет ELMA365 и amoCRM, сопровождает SQL-базы данных, рабочие места, серверную и сетевую инфраструктуру, а также оказывает услуги по информационной безопасности.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Обсудить проект</a>
-            <a class="btn btn-secondary" href="#compliance">Сведения по приказу №511</a>
-          </div>
-          <div class="hero-stats" aria-label="Ключевые направления">
-            <div><strong>6+</strong><span>направлений ИТ-услуг</span></div>
-            <div><strong>1.01–11.01</strong><span>коды ИТ-деятельности</span></div>
-            <div><strong>24/7</strong><span>открытый доступ к сведениям</span></div>
-          </div>
+      <div class="hero-grid container">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Разработка ПО · BPM · CRM · SQL · ИБ · Инфраструктура</p>
+          <h1>Инженерные ИТ-решения для компаний, которым важны надёжность, прозрачность и результат.</h1>
+          <p class="lead">ООО «ЛСТ ПРО» проектирует, разрабатывает и сопровождает программное обеспечение по индивидуальным требованиям заказчика: от автоматизации бизнес-процессов на ELMA365 и amoCRM до backend-разработки, SQL-баз данных, информационной безопасности и поддержки инфраструктуры.</p>
+          <div class="hero-actions"><a class="btn primary" href="#request">Обсудить проект</a><a class="btn ghost" href="#compliance">Сведения по Приказу №511</a></div>
+          <dl class="metrics"><div><dt>1.01 / 2.01</dt><dd>разработка и сопровождение ПО</dd></div><div><dt>3.01 / 4.01</dt><dd>данные, ИБ и инфраструктура</dd></div><div><dt>11.01</dt><dd>комплексные ИТ-услуги</dd></div></dl>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <img src="assets/hero-it.svg" alt="" />
-        </div>
+        <div class="hero-visual reveal"><img src="/assets/hero-premium.svg" alt="Архитектура ИТ-решений ЛСТ ПРО" width="680" height="520"><div class="glass-card"><b>Production-ready подход</b><span>Аналитика → архитектура → разработка → внедрение → сопровождение</span></div></div>
       </div>
     </section>
 
-    <section class="section intro">
-      <div class="container split">
-        <div>
-          <p class="eyebrow">О компании</p>
-          <h2>Инженерный подход к цифровизации</h2>
-        </div>
-        <div class="rich-text">
-          <p>Мы помогаем компаниям превращать разрозненные процессы в управляемые цифровые контуры: от обследования и проектирования архитектуры до разработки, внедрения, сопровождения и поддержки пользователей.</p>
-          <p>В основе работы — практичность, безопасность, прозрачная коммуникация и ориентация на измеримый результат: ускорение операций, снижение ручного труда, повышение контроля и качества данных.</p>
-        </div>
+    <section class="section logos container" aria-label="Направления работ">
+      <span>ELMA365</span><span>amoCRM</span><span>Python</span><span>Java</span><span>C#</span><span>TypeScript</span><span>Node.js</span><span>SQL</span>
+    </section>
+
+    <section class="section container" id="services">
+      <div class="section-head reveal"><p class="eyebrow">Что делаем</p><h2>Полный цикл разработки, интеграций и ИТ-сопровождения</h2><p>Мы берём на себя техническую часть проекта: формализуем требования, проектируем архитектуру, разрабатываем, тестируем, внедряем и сопровождаем решение после запуска.</p></div>
+      <div class="service-grid">
+        <article class="service-card reveal"><img src="/assets/elma.svg" alt="ELMA365"><h3>Разработка на ELMA365</h3><p>Создаём BPM-решения и корпоративные контуры автоматизации: маршруты согласований, регламенты, карточки объектов, интеграции, роли, права доступа, отчётность и контроль исполнения.</p><ul><li>моделирование процессов и форм;</li><li>интеграция с 1С, почтой, API и внешними сервисами;</li><li>настройка SLA, уведомлений и аналитики.</li></ul></article>
+        <article class="service-card reveal"><img src="/assets/crm.svg" alt="amoCRM"><h3>amoCRM и продажи</h3><p>Адаптируем amoCRM под реальные этапы продаж: воронки, карточки сделок, задачи, интеграции с телефонией, сайтами, мессенджерами, почтой и внутренними системами компании.</p><ul><li>проектирование CRM-логики;</li><li>роботы, триггеры, webhooks и виджеты;</li><li>отчёты и контроль качества обработки заявок.</li></ul></article>
+        <article class="service-card reveal"><img src="/assets/code.svg" alt="Разработка"><h3>Индивидуальная разработка ПО</h3><p>Разрабатываем сервисы, модули, API, интеграционные шины, внутренние порталы и специализированные приложения на Python, Java, C#, TypeScript, Node.js и других технологиях.</p><ul><li>backend, frontend и API;</li><li>интеграция с внешними системами;</li><li>тестирование и документация.</li></ul></article>
+        <article class="service-card reveal"><img src="/assets/database.svg" alt="SQL"><h3>SQL и базы данных</h3><p>Проектируем, оптимизируем и сопровождаем базы данных: структура, индексы, запросы, регламенты резервного копирования, миграции, контроль производительности и отказоустойчивости.</p><ul><li>PostgreSQL, MS SQL, MySQL и др.;</li><li>аудит производительности;</li><li>регламентное обслуживание и мониторинг.</li></ul></article>
+        <article class="service-card reveal"><img src="/assets/security.svg" alt="Информационная безопасность"><h3>Информационная безопасность</h3><p>Помогаем выстроить базовую и прикладную защиту: анализ рисков, разграничение доступа, контроль уязвимостей, защита рабочих мест, серверов, сетей и корпоративных сервисов.</p><ul><li>аудит ИТ-ландшафта;</li><li>настройка политик доступа;</li><li>практические рекомендации и сопровождение.</li></ul></article>
+        <article class="service-card reveal"><img src="/assets/infrastructure.svg" alt="Инфраструктура"><h3>Рабочие места, сети и серверы</h3><p>Обслуживаем пользовательские рабочие места, сетевое оборудование, серверную инфраструктуру, корпоративные сервисы, резервное копирование и эксплуатационные процессы.</p><ul><li>поддержка пользователей;</li><li>администрирование серверов и сетей;</li><li>мониторинг, регламенты, аварийное реагирование.</li></ul></article>
       </div>
     </section>
 
-    <section class="section services" id="services">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Услуги</p>
-          <h2>Комплексные ИТ-решения для бизнеса</h2>
-          <p>Подбираем технологический стек и формат работ под задачу, масштаб компании, требования к безопасности и дальнейшему сопровождению.</p>
-        </div>
-        <div class="cards-grid">
-          <article class="card service-card">
-            <img src="assets/elma.svg" alt="Иллюстрация автоматизации бизнес-процессов" />
-            <h3>Разработка на базе ELMA365</h3>
-            <p>Проектируем и настраиваем корпоративные процессы, маршруты согласования, электронные формы, интеграции, уведомления, ролевые модели и аналитические представления. Решения создаются под индивидуальные требования заказчика и могут включать обследование процессов, прототипирование, настройку BPM-сценариев, разработку модулей и обучение пользователей.</p>
-          </article>
-          <article class="card service-card">
-            <img src="assets/crm.svg" alt="Иллюстрация CRM и продаж" />
-            <h3>Разработка и внедрение amoCRM</h3>
-            <p>Настраиваем воронки продаж, карточки сделок, автоматические задачи, интеграции с телефонией, почтой, мессенджерами и внутренними системами. Разрабатываем виджеты, автоматизируем обработку лидов и формируем прозрачную аналитику для отдела продаж и руководителей.</p>
-          </article>
-          <article class="card service-card">
-            <img src="assets/code.svg" alt="Иллюстрация разработки программного обеспечения" />
-            <h3>Индивидуальная разработка ПО</h3>
-            <p>Создаем веб-сервисы, внутренние порталы, интеграционные модули, API, личные кабинеты и прикладные системы на Python, Java, C#, TypeScript, Node.js и других технологиях. Разработка может включать архитектуру, UX-прототипы, backend, frontend, тестирование, документацию и сопровождение.</p>
-          </article>
-          <article class="card service-card">
-            <img src="assets/database.svg" alt="Иллюстрация баз данных" />
-            <h3>Разработка и обслуживание SQL-баз данных</h3>
-            <p>Проектируем структуры данных, оптимизируем запросы, настраиваем резервное копирование, миграции, регламентные процедуры, мониторинг и контроль производительности. Помогаем поддерживать надежность, целостность и доступность данных в бизнес-критичных системах.</p>
-          </article>
-          <article class="card service-card">
-            <img src="assets/security.svg" alt="Иллюстрация информационной безопасности" />
-            <h3>Информационная безопасность</h3>
-            <p>Оцениваем риски, анализируем настройки доступа, помогаем выстроить базовые меры защиты, контролировать учетные записи, права пользователей, журналы событий и процессы реагирования. Услуги могут включать подготовку рекомендаций, настройку политик безопасности и сопровождение защитных мероприятий.</p>
-          </article>
-          <article class="card service-card">
-            <img src="assets/infrastructure.svg" alt="Иллюстрация ИТ-инфраструктуры" />
-            <h3>Обслуживание рабочих мест и инфраструктуры</h3>
-            <p>Сопровождаем рабочие станции, серверы, сетевое оборудование, учетные записи, периферийные устройства и типовые пользовательские сервисы. Помогаем поддерживать стабильную работу ИТ-среды, быстро устранять инциденты и развивать инфраструктуру под рост бизнеса.</p>
-          </article>
-        </div>
+    <section class="section dark" id="tech">
+      <div class="container tech-grid">
+        <div class="reveal"><p class="eyebrow">Технологический стек</p><h2>Подбираем технологии под задачу, а не наоборот</h2><p>Используем языки программирования, платформы, базы данных и инструменты, которые позволяют создать устойчивое решение с понятной стоимостью владения и возможностью дальнейшего развития.</p></div>
+        <div class="tech-cloud reveal"><span>Python</span><span>Java</span><span>C#</span><span>TypeScript</span><span>Node.js</span><span>SQL</span><span>REST API</span><span>ELMA365</span><span>amoCRM</span><span>Git</span><span>Docker</span><span>CI/CD</span><span>Linux</span><span>Windows Server</span><span>PostgreSQL</span><span>MS SQL</span></div>
       </div>
     </section>
 
-    <section class="section process">
-      <div class="container">
-        <div class="section-head narrow">
-          <p class="eyebrow">Как мы работаем</p>
-          <h2>От задачи до устойчивого результата</h2>
-        </div>
-        <div class="steps">
-          <div class="step"><span>01</span><h3>Обследование</h3><p>Фиксируем цели, ограничения, текущие процессы, интеграции, роли пользователей и критерии успеха.</p></div>
-          <div class="step"><span>02</span><h3>Проектирование</h3><p>Готовим архитектуру решения, карту процессов, план работ, оценку трудозатрат и порядок внедрения.</p></div>
-          <div class="step"><span>03</span><h3>Разработка</h3><p>Создаем и настраиваем функциональность итерациями, демонстрируем результат и учитываем обратную связь.</p></div>
-          <div class="step"><span>04</span><h3>Запуск и сопровождение</h3><p>Проводим тестирование, вводим решение в эксплуатацию, обучаем пользователей и поддерживаем развитие системы.</p></div>
-        </div>
-      </div>
+    <section class="section container process">
+      <div class="section-head reveal"><p class="eyebrow">Как работаем</p><h2>Проектная методика без лишней бюрократии</h2></div>
+      <div class="timeline"><div><b>01</b><h3>Диагностика</h3><p>Уточняем бизнес-задачу, ограничения, текущие системы и ожидаемый эффект.</p></div><div><b>02</b><h3>Архитектура</h3><p>Описываем целевое решение, интеграции, роли, данные, риски и план внедрения.</p></div><div><b>03</b><h3>Разработка</h3><p>Реализуем функциональность итерациями с промежуточной демонстрацией результата.</p></div><div><b>04</b><h3>Запуск</h3><p>Тестируем, переносим данные, обучаем пользователей и сопровождаем эксплуатацию.</p></div></div>
     </section>
 
-    <section class="section technologies" id="technologies">
-      <div class="container split align-center">
-        <div>
-          <p class="eyebrow">Технологии</p>
-          <h2>Используем проверенные платформы и современные языки разработки</h2>
-          <p class="lead small">Технологический стек определяется задачей заказчика, требованиями к интеграциям, безопасности, производительности и дальнейшей эксплуатации.</p>
-          <div class="tags">
-            <span>ELMA365</span><span>amoCRM</span><span>Python</span><span>Java</span><span>C#</span><span>TypeScript</span><span>Node.js</span><span>SQL</span><span>REST API</span><span>Интеграции</span><span>ИБ</span><span>Серверы и сети</span>
-          </div>
-        </div>
-        <div class="panel">
-          <h3>Что получает заказчик</h3>
-          <ul class="check-list">
-            <li>решение, адаптированное под фактические бизнес-процессы;</li>
-            <li>понятную архитектуру и возможность дальнейшего развития;</li>
-            <li>интеграции с корпоративными системами и внешними сервисами;</li>
-            <li>документирование ключевых настроек и правил эксплуатации;</li>
-            <li>поддержку после запуска и развитие функциональности.</li>
-          </ul>
-        </div>
-      </div>
+    <section class="section container" id="price">
+      <div class="price-card reveal"><div><p class="eyebrow">Стоимость</p><h2>Оценка зависит от состава работ и объёма проекта</h2><p>Мы не закладываем «универсальную» цену в сложные ИТ-задачи: сначала определяем цель, требования, интеграции, риски, сроки и требуемый состав команды. Такой подход позволяет не переплачивать за лишний функционал и заранее понимать бюджет внедрения.</p><p class="muted">Базовая расчётная ставка разработки — <strong>4 000 ₽/час</strong>. На услуги применяется НДС 5%. Итоговая стоимость фиксируется в коммерческом предложении после экспресс-анализа проекта.</p></div><a class="btn primary" href="#request">Запросить оценку</a></div>
     </section>
 
     <section class="section compliance" id="compliance">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Сведения об ИТ-деятельности</p>
-          <h2>Информация для размещения на официальном сайте в целях исполнения требований Приказа Минцифры России от 02.06.2025 № 511</h2>
-          <p>Доступ к настоящему разделу открыт круглосуточно, без регистрации, авторизации и дополнительных ограничений.</p>
+        <div class="section-head reveal"><p class="eyebrow">Официальные сведения</p><h2>Информация для соответствия требованиям Приказа Минцифры России от 02.06.2025 № 511</h2><p>Сведения размещены в открытом доступе без необходимости регистрации и предоставления персональных данных.</p></div>
+        <div class="compliance-grid reveal">
+          <dl><dt>Полное наименование</dt><dd>Общество с ограниченной ответственностью «ЛСТ ПРО»</dd><dt>Сокращённое наименование</dt><dd>ООО «ЛСТ ПРО»</dd><dt>Адрес</dt><dd>191181, г. Санкт-Петербург, Миллионная ул., д. 8, помещ. 15-Н, помещение 12</dd><dt>ИНН / КПП / ОГРН</dt><dd>7840102040 / 784001001 / 1227800125277</dd></dl>
+          <dl><dt>Контакты</dt><dd><a href="tel:+78123258255">+7-812-325-82-55</a><br><a href="mailto:titov@78stroy.ru">titov@78stroy.ru</a></dd><dt>Генеральный директор</dt><dd>Титов Дмитрий Викторович</dd><dt>Коды видов деятельности в области ИТ</dt><dd>1.01, 2.01, 3.01, 4.01, 11.01</dd><dt>Реестр российского ПО</dt><dd>Исключительные права на ПО, включённое в единый реестр российского ПО, отсутствуют.</dd></dl>
         </div>
-        <div class="compliance-grid">
-          <div class="info-card">
-            <h3>Реквизиты организации</h3>
-            <dl>
-              <dt>Полное наименование</dt><dd>Общество с ограниченной ответственностью «ЛСТ ПРО»</dd>
-              <dt>Сокращенное наименование</dt><dd>ООО «ЛСТ ПРО»</dd>
-              <dt>Юридический адрес</dt><dd>191181, г. Санкт-Петербург, Миллионная ул., д. 8, помещ. 15-Н, помещение 12</dd>
-              <dt>ИНН</dt><dd>7840102040</dd>
-              <dt>КПП</dt><dd>784001001</dd>
-              <dt>ОГРН</dt><dd>1227800125277</dd>
-              <dt>Генеральный директор</dt><dd>Титов Дмитрий Викторович</dd>
-              <dt>Телефон</dt><dd><a href="tel:+78123258255">+7 (812) 325-82-55</a></dd>
-              <dt>Электронная почта</dt><dd><a href="mailto:titov@78stroy.ru">titov@78stroy.ru</a></dd>
-            </dl>
-          </div>
-          <div class="info-card">
-            <h3>Коды ИТ-деятельности</h3>
-            <p>Основные коды видов деятельности в области информационных технологий:</p>
-            <div class="code-list">
-              <span>1.01</span><span>2.01</span><span>3.01</span><span>4.01</span><span>11.01</span>
-            </div>
-            <p class="muted">Оказываемые услуги включают разработку программного обеспечения по индивидуальным требованиям, внедрение и настройку платформ, сопровождение баз данных, услуги информационной безопасности, обслуживание рабочих мест, сетевой и серверной инфраструктуры.</p>
-          </div>
-          <div class="info-card wide">
-            <h3>Описание реализуемых работ и услуг</h3>
-            <p>ООО «ЛСТ ПРО» выполняет работы и оказывает услуги в области информационных технологий, включая анализ требований заказчика, проектирование архитектуры, разработку и настройку программных решений, интеграцию информационных систем, тестирование, ввод в эксплуатацию, сопровождение, развитие и техническую поддержку.</p>
-            <p>Ключевые направления: разработка решений на базе ELMA365 и amoCRM, индивидуальная разработка на Python, Java, C#, TypeScript, Node.js и иных языках программирования, проектирование и сопровождение SQL-баз данных, услуги по информационной безопасности, обслуживание рабочих мест, сетевой и серверной инфраструктуры.</p>
-          </div>
-          <div class="info-card wide">
-            <h3>Сведения о программном обеспечении и правах</h3>
-            <p>Сведения о наличии прав на программное обеспечение, включенное в единый реестр российских программ для электронных вычислительных машин и баз данных: <strong>отсутствуют</strong>.</p>
-            <p>При выполнении проектов по индивидуальным требованиям заказчика объем прав, порядок передачи результатов работ, условия использования программного обеспечения и иные существенные условия определяются договором и техническим заданием на конкретный проект.</p>
-          </div>
-        </div>
+        <div class="center"><a class="btn ghost" href="/compliance-511.html">Открыть полную страницу сведений</a></div>
       </div>
     </section>
 
-    <section class="section price" id="price">
-      <div class="container split align-start">
-        <div>
-          <p class="eyebrow">Стоимость</p>
-          <h2>Стоимость формируется исходя из состава и объема проекта</h2>
-          <p class="lead small">Мы заранее согласуем формат работ, ожидаемый результат, этапность и трудозатраты. Итоговая стоимость зависит от сложности задачи, количества интеграций, требований к безопасности, объема тестирования и сопровождения.</p>
-        </div>
-        <div class="price-card">
-          <div class="price-main">
-            <span>Ориентир для расчета</span>
-            <strong>4 000 ₽ / час</strong>
-            <small>НДС 5% применяется ко всем услугам</small>
-          </div>
-          <p>Для каждого проекта подготавливается индивидуальная оценка. В коммерческом предложении может быть отражен почасовой порядок расчета, этапная стоимость работ или фиксированная стоимость согласованного объема.</p>
-          <a class="btn btn-primary full" href="#contact">Запросить оценку</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section requisites" id="requisites">
-      <div class="container">
-        <div class="section-head narrow">
-          <p class="eyebrow">Банковские реквизиты</p>
-          <h2>ООО «ЛСТ ПРО»</h2>
-        </div>
-        <div class="bank-grid">
-          <article class="bank-card">
-            <h3>Северо-Западный банк ПАО Сбербанк в г. Санкт-Петербурге</h3>
-            <dl>
-              <dt>Расчетный счет</dt><dd>40702810355000093023</dd>
-              <dt>БИК</dt><dd>044030653</dd>
-              <dt>Корреспондентский счет</dt><dd>30101810500000000653</dd>
-            </dl>
-          </article>
-          <article class="bank-card">
-            <h3>Филиал «Центральный» Банка ВТБ (ПАО)</h3>
-            <dl>
-              <dt>Расчетный счет</dt><dd>40702810928530000535</dd>
-              <dt>БИК</dt><dd>044525411</dd>
-              <dt>Корреспондентский счет</dt><dd>30101810145250000411</dd>
-            </dl>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section contact" id="contact">
-      <div class="container contact-grid">
-        <div>
-          <p class="eyebrow">Контакты</p>
-          <h2>Расскажите о задаче — предложим оптимальный формат работ</h2>
-          <p class="lead small">Опишите цель проекта, текущую ситуацию, желаемый результат и сроки. Мы уточним детали и подготовим предварительный план реализации.</p>
-          <div class="contact-list">
-            <a href="tel:+78123258255">+7 (812) 325-82-55</a>
-            <a href="mailto:titov@78stroy.ru">titov@78stroy.ru</a>
-            <span>191181, г. Санкт-Петербург, Миллионная ул., д. 8, помещ. 15-Н, помещение 12</span>
-          </div>
-        </div>
-        <form class="contact-form" name="request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="request" />
-          <p class="hidden"><label>Не заполняйте это поле: <input name="bot-field" /></label></p>
-          <label>Имя<input name="name" type="text" placeholder="Как к вам обращаться" required /></label>
-          <label>Телефон или email<input name="contact" type="text" placeholder="Для обратной связи" required /></label>
-          <label>Интересующая услуга<select name="service"><option>Индивидуальная разработка ПО</option><option>ELMA365</option><option>amoCRM</option><option>SQL-базы данных</option><option>Информационная безопасность</option><option>ИТ-инфраструктура</option></select></label>
-          <label>Описание задачи<textarea name="message" rows="5" placeholder="Кратко опишите проект, систему или проблему"></textarea></label>
-          <button class="btn btn-primary full" type="submit">Отправить заявку</button>
-          <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку данных для обратной связи по заявке.</p>
+    <section class="section container" id="request">
+      <div class="contact-grid">
+        <div class="reveal"><p class="eyebrow">Контакт</p><h2>Расскажите о задаче — подготовим предварительный подход и оценку</h2><p>Опишите, что нужно автоматизировать, какие системы уже используются и какой результат вы хотите получить. Мы свяжемся для уточнения деталей.</p><div class="contact-lines"><a href="tel:+78123258255">+7-812-325-82-55</a><a href="mailto:titov@78stroy.ru">titov@78stroy.ru</a><span>Санкт-Петербург, Миллионная ул., д. 8</span></div></div>
+        <form class="form reveal" name="request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success.html">
+          <input type="hidden" name="form-name" value="request"><p class="hidden"><label>Не заполнять: <input name="bot-field"></label></p>
+          <label>Имя<input name="name" autocomplete="name" required placeholder="Как к вам обращаться"></label>
+          <label>Телефон или email<input name="contact" autocomplete="email" required placeholder="Для обратной связи"></label>
+          <label>Задача<textarea name="message" rows="5" required placeholder="Опишите проект, систему или услугу"></textarea></label>
+          <label class="check"><input type="checkbox" required> <span>Я согласен(на) на обработку персональных данных и принимаю условия <a href="/privacy.html">Политики</a>.</span></label>
+          <button class="btn primary" type="submit">Отправить заявку</button>
         </form>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <a class="logo footer-logo" href="#top"><span class="logo-mark">LST</span><span class="logo-text">ЛСТ ПРО</span></a>
-        <p>Разработка программного обеспечения, автоматизация, сопровождение ИТ-инфраструктуры и информационная безопасность.</p>
-      </div>
-      <div>
-        <h3>Навигация</h3>
-        <a href="#services">Услуги</a>
-        <a href="#compliance">Сведения по приказу №511</a>
-        <a href="#requisites">Реквизиты</a>
-        <a href="#contact">Контакты</a>
-      </div>
-      <div>
-        <h3>ООО «ЛСТ ПРО»</h3>
-        <p>ИНН 7840102040<br>ОГРН 1227800125277<br>Генеральный директор: Титов Д.В.</p>
-      </div>
-    </div>
-    <div class="container copyright">© <span id="year"></span> ООО «ЛСТ ПРО». Все права защищены.</div>
-  </footer>
+  <footer class="footer" id="contacts"><div class="container footer-grid"><div><a class="brand" href="/"><span class="brand-mark">LST</span><span><strong>ЛСТ ПРО</strong><small>lstpro.ru</small></span></a><p>Разработка программного обеспечения и ИТ-сопровождение для бизнеса.</p></div><div><h3>Документы</h3><a href="/privacy.html">Политика обработки ПДн</a><a href="/user-agreement.html">Пользовательское соглашение</a><a href="/cookies.html">Cookie notice</a><a href="/compliance-511.html">Сведения по Приказу №511</a><a href="/requisites.html">Реквизиты</a></div><div><h3>Контакты</h3><a href="tel:+78123258255">+7-812-325-82-55</a><a href="mailto:titov@78stroy.ru">titov@78stroy.ru</a><span>191181, Санкт-Петербург, Миллионная ул., д. 8</span></div></div><div class="container footer-bottom">© <span id="year"></span> ООО «ЛСТ ПРО». Все права защищены.</div></footer>
 
-  <script src="script.js"></script>
+  <div class="cookie" role="dialog" aria-live="polite" aria-label="Уведомление cookie"><p>Мы используем cookie-файлы и инструменты аналитики для корректной работы сайта и улучшения сервиса. Продолжая использовать сайт, вы соглашаетесь с <a href="/cookies.html">Cookie notice</a>.</p><button class="btn small" id="acceptCookies">Принять</button></div>
+  <script src="/script.js" defer></script>
 </body>
 </html>

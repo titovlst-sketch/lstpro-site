@@ -1,0 +1,22 @@
+# Production checklist для lstpro.ru
+
+- [x] HTTPS через Netlify
+- [x] Canonical URL: https://lstpro.ru/
+- [x] Redirect www → non-www
+- [x] robots.txt
+- [x] sitemap.xml
+- [x] SEO meta description
+- [x] OpenGraph
+- [x] JSON-LD Organization
+- [x] Netlify Forms
+- [x] Cookie banner
+- [x] Privacy policy
+- [x] User agreement
+- [x] Cookie notice
+- [x] Страница сведений по Приказу №511
+- [x] Реквизиты
+- [x] Security headers
+- [ ] Подключить домен lstpro.ru в Netlify
+- [ ] Настроить DNS у регистратора
+- [ ] Добавить Яндекс.Метрику при необходимости
+- [ ] Подтвердить основной ОКВЭД
