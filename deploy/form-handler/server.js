@@ -3,15 +3,22 @@
 //
 // Принимает POST (application/x-www-form-urlencoded) на любой путь,
 // пишет заявку в JSONL-журнал (доказательство согласия на обработку ПДн)
-// и отправляет уведомление в Telegram, если заданы TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID.
+// и отправляет уведомления: на почту по SMTP и/или в Telegram — что настроено.
 // Отвечает 303 -> /success.html, чтобы браузер показал страницу успеха.
 //
 // Переменные окружения (см. /etc/lstpro-form.env):
 //   PORT              порт (по умолчанию 8300, слушает только 127.0.0.1)
 //   DATA_FILE         путь к журналу (по умолчанию /var/lib/lstpro-form/requests.jsonl)
-//   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID  куда слать уведомления
+//   SMTP_HOST, SMTP_PORT (465 = TLS сразу, иначе STARTTLS), SMTP_USER, SMTP_PASS
+//   MAIL_TO           получатель заявок; MAIL_FROM (по умолчанию = SMTP_USER)
+//   SMTP_TLS_REJECT_UNAUTHORIZED=0  отключить проверку TLS-сертификата SMTP-сервера
+//   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+//
+// Тест почты: node server.js --test-email
 
 const http = require('http');
+const net = require('net');
+const tls = require('tls');
 const fs = require('fs');
 const path = require('path');
 
@@ -19,6 +26,15 @@ const PORT = Number(process.env.PORT || 8300);
 const DATA_FILE = process.env.DATA_FILE || '/var/lib/lstpro-form/requests.jsonl';
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TG_CHAT = process.env.TELEGRAM_CHAT_ID;
+const SMTP = {
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT || 587),
+  user: process.env.SMTP_USER,
+  pass: process.env.SMTP_PASS,
+  to: process.env.MAIL_TO,
+  from: process.env.MAIL_FROM || process.env.SMTP_USER,
+  rejectUnauthorized: process.env.SMTP_TLS_REJECT_UNAUTHORIZED !== '0',
+};
 
 const MAX_BODY = 64 * 1024;
 const rate = new Map(); // ip -> [timestamps]
@@ -35,6 +51,89 @@ function rateLimited(ip) {
 function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
+
+// --- SMTP (EHLO -> STARTTLS -> AUTH LOGIN -> MAIL) --------------------------
+
+function smtpSend({ subject, text }) {
+  const { host, port, user, pass, from, to, rejectUnauthorized } = SMTP;
+  if (!host || !user || !pass || !to) return Promise.resolve('smtp not configured');
+
+  const b64 = s => Buffer.from(s, 'utf8').toString('base64');
+  const message = [
+    `From: lstpro.ru <${from}>`,
+    `To: <${to}>`,
+    `Subject: =?UTF-8?B?${b64(subject)}?=`,
+    `Date: ${new Date().toUTCString()}`,
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset=utf-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    b64(text).replace(/(.{76})/g, '$1\r\n'),
+    '.',
+  ].join('\r\n');
+
+  return new Promise((resolve, reject) => {
+    let sock, buf = '', step = 0, settled = false;
+    const timer = setTimeout(() => fail(new Error('smtp timeout')), 30000);
+    const done = () => { if (!settled) { settled = true; clearTimeout(timer); resolve('sent'); } };
+    const fail = e => { if (!settled) { settled = true; clearTimeout(timer); try { sock.destroy(); } catch {} reject(e); } };
+    const send = line => sock.write(line + '\r\n');
+
+    // Каждый шаг: ожидаемый код ответа и действие после него
+    const steps = [];
+    const implicitTls = port === 465;
+    steps.push({ code: 220, run: () => send('EHLO lstpro.ru') });
+    if (!implicitTls) {
+      steps.push({ code: 250, run: () => send('STARTTLS') });
+      steps.push({ code: 220, run: upgrade });
+      steps.push({ code: 250, run: () => send('AUTH LOGIN') }); // ответ на повторный EHLO
+    } else {
+      steps.push({ code: 250, run: () => send('AUTH LOGIN') });
+    }
+    steps.push({ code: 334, run: () => send(b64(user)) });
+    steps.push({ code: 334, run: () => send(b64(pass)) });
+    steps.push({ code: 235, run: () => send(`MAIL FROM:<${from}>`) });
+    steps.push({ code: 250, run: () => send(`RCPT TO:<${to}>`) });
+    steps.push({ code: 250, run: () => send('DATA') });
+    steps.push({ code: 354, run: () => sock.write(message + '\r\n') });
+    steps.push({ code: 250, run: () => { send('QUIT'); done(); } });
+
+    function onData(chunk) {
+      buf += chunk.toString('utf8');
+      let i;
+      while ((i = buf.indexOf('\r\n')) !== -1) {
+        const line = buf.slice(0, i);
+        buf = buf.slice(i + 2);
+        const m = line.match(/^(\d{3}) /); // финальная строка ответа (после кода — пробел)
+        if (!m) continue;
+        const code = Number(m[1]);
+        const s = steps[step];
+        if (!s) return;
+        if (code !== s.code) return fail(new Error(`smtp step ${step}: ожидали ${s.code}, получили "${line}"`));
+        step++;
+        s.run();
+      }
+    }
+
+    function upgrade() {
+      sock.removeListener('data', onData);
+      buf = '';
+      sock = tls.connect({ socket: sock, servername: host, rejectUnauthorized }, () => {
+        sock.on('data', onData);
+        send('EHLO lstpro.ru');
+      });
+      sock.on('error', fail);
+    }
+
+    sock = implicitTls
+      ? tls.connect({ host, port, servername: host, rejectUnauthorized })
+      : net.connect({ host, port });
+    sock.on('data', onData);
+    sock.on('error', fail);
+  });
+}
+
+// --- Уведомления ------------------------------------------------------------
 
 async function notifyTelegram(entry) {
   if (!TG_TOKEN || !TG_CHAT) return;
@@ -53,6 +152,41 @@ async function notifyTelegram(entry) {
   if (!res.ok) console.error('telegram error:', res.status, await res.text());
 }
 
+function notifyEmail(entry) {
+  return smtpSend({
+    subject: `Заявка с lstpro.ru: ${entry.name}`,
+    text: [
+      'Новая заявка с сайта lstpro.ru',
+      '',
+      `Имя:     ${entry.name}`,
+      `Контакт: ${entry.contact}`,
+      `Задача:  ${entry.message}`,
+      '',
+      `Согласие на обработку ПДн: ${entry.consent || 'не отмечено'}`,
+      `Время: ${entry.ts}`,
+      `IP: ${entry.ip}`,
+    ].join('\n'),
+  });
+}
+
+function notifyAll(entry) {
+  return Promise.allSettled([notifyEmail(entry), notifyTelegram(entry)]).then(results => {
+    results.forEach(r => { if (r.status === 'rejected') console.error('notify failed:', r.reason); });
+  });
+}
+
+// --- Режим теста почты ------------------------------------------------------
+
+if (process.argv.includes('--test-email')) {
+  smtpSend({
+    subject: 'Тест: заявки с lstpro.ru настроены',
+    text: 'Это тестовое письмо от обработчика формы lstpro.ru.\n\nЕсли вы его читаете — SMTP-уведомления о заявках работают.\nЗаявки также сохраняются на сервере в /var/lib/lstpro-form/requests.jsonl.',
+  }).then(r => { console.log('OK:', r); process.exit(0); })
+    .catch(e => { console.error('FAIL:', e.message); process.exit(1); });
+} else {
+
+// --- HTTP-сервер ------------------------------------------------------------
+
 const server = http.createServer((req, res) => {
   if (req.method === 'GET' && req.url === '/health') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -70,6 +204,7 @@ const server = http.createServer((req, res) => {
   });
   req.on('end', async () => {
     const redirect = () => {
+      if (res.headersSent) return;
       res.writeHead(303, { Location: '/success.html' });
       res.end();
     };
@@ -93,13 +228,15 @@ const server = http.createServer((req, res) => {
 
       fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
       fs.appendFileSync(DATA_FILE, JSON.stringify(entry) + '\n');
-      await notifyTelegram(entry).catch(e => console.error('notify failed:', e));
-      redirect();
+      redirect(); // посетителя не заставляем ждать SMTP
+      await notifyAll(entry);
     } catch (e) {
       console.error('request failed:', e);
-      redirect(); // посетителю всегда показываем успех, ошибки смотрим в journalctl
+      redirect();
     }
   });
 });
 
 server.listen(PORT, '127.0.0.1', () => console.log(`lstpro-form listening on 127.0.0.1:${PORT}`));
+
+}
