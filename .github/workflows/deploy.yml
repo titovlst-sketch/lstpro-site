@@ -1,0 +1,27 @@
+name: Deploy to VDS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    # Включение: Settings -> Secrets and variables -> Actions -> Variables -> DEPLOY_ENABLED = true
+    if: ${{ vars.DEPLOY_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Rsync site
+        run: |
+          rsync -az --delete \
+            --exclude '.git*' --exclude 'deploy/' --exclude 'README.md' --exclude 'netlify.toml' \
+            ./ "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/lstpro/"

@@ -19,6 +19,13 @@
   status = 301
   force = true
 
+# Служебные файлы деплоя не публикуем, пока сайт ещё на Netlify
+[[redirects]]
+  from = "/deploy/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

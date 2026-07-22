@@ -1,0 +1,19 @@
+[Unit]
+Description=lstpro.ru form handler
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /opt/lstpro-form/server.js
+EnvironmentFile=-/etc/lstpro-form.env
+DynamicUser=yes
+StateDirectory=lstpro-form
+Environment=DATA_FILE=/var/lib/lstpro-form/requests.jsonl
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
