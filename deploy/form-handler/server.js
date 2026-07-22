@@ -54,9 +54,32 @@ function esc(s) {
 
 // --- SMTP (EHLO -> STARTTLS -> AUTH LOGIN -> MAIL) --------------------------
 
-function smtpSend({ subject, text }) {
+// У почтового сервера может быть несколько A-записей, часть — недоступные
+// снаружи; Node 18 сам адреса не перебирает, поэтому перебираем вручную.
+async function smtpConnect(host, port, implicitTls, rejectUnauthorized) {
+  let addrs;
+  try { addrs = await require('dns').promises.resolve4(host); } catch { addrs = [host]; }
+  let lastErr;
+  for (const addr of addrs) {
+    try {
+      return await new Promise((resolve, reject) => {
+        const s = implicitTls
+          ? tls.connect({ host: addr, port, servername: host, rejectUnauthorized })
+          : net.connect({ host: addr, port });
+        const t = setTimeout(() => { s.destroy(); reject(new Error(`connect timeout ${addr}`)); }, 6000);
+        s.once(implicitTls ? 'secureConnect' : 'connect', () => { clearTimeout(t); resolve(s); });
+        s.once('error', e => { clearTimeout(t); reject(e); });
+      });
+    } catch (e) { lastErr = e; }
+  }
+  throw lastErr || new Error('smtp connect failed');
+}
+
+async function smtpSend({ subject, text }) {
   const { host, port, user, pass, from, to, rejectUnauthorized } = SMTP;
-  if (!host || !user || !pass || !to) return Promise.resolve('smtp not configured');
+  if (!host || !user || !pass || !to) return 'smtp not configured';
+  const implicitTls = port === 465;
+  const socket = await smtpConnect(host, port, implicitTls, rejectUnauthorized);
 
   const b64 = s => Buffer.from(s, 'utf8').toString('base64');
   const message = [
@@ -73,7 +96,7 @@ function smtpSend({ subject, text }) {
   ].join('\r\n');
 
   return new Promise((resolve, reject) => {
-    let sock, buf = '', step = 0, settled = false;
+    let sock = socket, buf = '', step = 0, settled = false;
     const timer = setTimeout(() => fail(new Error('smtp timeout')), 30000);
     const done = () => { if (!settled) { settled = true; clearTimeout(timer); resolve('sent'); } };
     const fail = e => { if (!settled) { settled = true; clearTimeout(timer); try { sock.destroy(); } catch {} reject(e); } };
@@ -81,7 +104,6 @@ function smtpSend({ subject, text }) {
 
     // Каждый шаг: ожидаемый код ответа и действие после него
     const steps = [];
-    const implicitTls = port === 465;
     steps.push({ code: 220, run: () => send('EHLO lstpro.ru') });
     if (!implicitTls) {
       steps.push({ code: 250, run: () => send('STARTTLS') });
@@ -125,9 +147,6 @@ function smtpSend({ subject, text }) {
       sock.on('error', fail);
     }
 
-    sock = implicitTls
-      ? tls.connect({ host, port, servername: host, rejectUnauthorized })
-      : net.connect({ host, port });
     sock.on('data', onData);
     sock.on('error', fail);
   });
